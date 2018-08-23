@@ -1,0 +1,25 @@
+<p>View Task is Works!</p>
+<script type="text/javascript">
+	
+	let tasks_list = document.createElement('ul');
+
+	const myHeaders = new Headers();
+	myHeaders.append('Authorization', `Bearer ${localStorage.token}`)
+
+	fetch('/api/tasks', {
+		method: 'GET',
+		headers: myHeaders
+	})
+	.then(res => res.json())
+	.then(data =>{ 
+		console.log(data);
+		data.Tareas.map(Tarea =>{
+			let text = document.createTextNode(Tarea.title);
+			let element = document.createElement('li');
+			element.appendChild(text);
+			tasks_list.appendChild(element);
+		});
+
+		document.body.appendChild(tasks_list);
+	});
+</script>

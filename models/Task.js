@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const task_schema = Schema({
 	title: {type: String, min: 3},
 	state: {type: String, enum: ['pendiente', 'realizado']},
-	date: {type: Date},
+	date: {type: Date, default: Date.now()},
 	description: {type: String, min: 3}
 });
 

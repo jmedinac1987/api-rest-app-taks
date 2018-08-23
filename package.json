@@ -10,10 +10,15 @@
   "author": "Jorge Andres Medina Castro (https://jorgemedina.herokuapp.com)",
   "license": "MIT",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "crypto": "^1.0.1",
     "express": "^4.16.3",
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.22.2",
     "mongoose": "^5.2.9"
   },
   "devDependencies": {
+    "express-handlebars": "^3.0.0",
     "nodemon": "^1.18.3"
   }
 }
