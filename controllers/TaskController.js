@@ -2,7 +2,9 @@
 const Task = require('../models/Task');
 
 function getTasks(req, res) {
-    Task.find(async (err, tasks) => {
+    let user = { userTask: req.user}
+    
+    Task.find(user, async (err, tasks) => {
         if (err) return await res.status(500).send({
             message: `Error al realizar la petición ${err}`
         });
@@ -17,8 +19,10 @@ function getTasks(req, res) {
 
 function getTask(req, res) {
     let task_id = {
-        _id: req.params.task_id
+        _id: req.params.task_id,
+        userTask: req.user
     };
+    
     Task.findOne(task_id, async (err, task) => {
         if (err) return await res.status(500).send({
             message: `Error al realizar la petición ${err}`
@@ -46,7 +50,8 @@ function saveTask(req, res) {
 
 function updateTask(req, res) {
     let task_id = {
-        _id: req.params.task_id
+        _id: req.params.task_id,
+        userTask: req.user
     };
     let task_update = req.body;
     Task.findOneAndUpdate(task_id, task_update, async (err, task) => {
@@ -64,7 +69,8 @@ function updateTask(req, res) {
 
 function deleteTask(req, res) {
     let task_id = {
-        _id: req.params.task_id
+        _id: req.params.task_id,
+        userTask: req.user
     };
     Task.findOneAndDelete(task_id, async (err, task) => {
         if (err) return await res.status(500).send({

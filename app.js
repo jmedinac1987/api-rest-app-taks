@@ -8,11 +8,11 @@ const api = require('./routes/');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//views develoment
+//development views
 app.engine('.hbs', hbs({
 	defaultLayout: 'default',
 	extname: '.hbs' 
-}));//para manejo de archivos express-handelbars
+}));//para manejo de archivos con extensión express-handelbars
 app.set('view engine', '.hbs');
 app.get('/login', (req, res) => {
 	res.render('login')
