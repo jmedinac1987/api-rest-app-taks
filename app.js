@@ -2,9 +2,12 @@
 const express = require('express');
 const app = express();
 const hbs = require('express-handlebars');
+const cors = require('cors');
 const api = require('./routes/');
+const config = require('./config');
 
 //Middlewares
+app.use(cors(config.corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
