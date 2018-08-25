@@ -37,7 +37,12 @@ function getTask(req, res) {
 }
 
 function saveTask(req, res) {
-    let task = new Task(req.body);
+    let task = new Task();
+    task.title = req.body.title;
+    task.state = req.body.state;
+    task.description = req.body.description;
+    task.userTask = req.user;
+
     task.save(async (err, taskStored) => {
         if (err) return await res.status(500).send({
             message: `Error al salvar la tarea ${err}`
