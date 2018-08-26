@@ -13,8 +13,8 @@ function isAuht(req, res, next){
 	services.decodeToken(token).then(response => {
 		req.user = response;
 		next();
-	}).catch(response =>{
-		res.status(response.status)
+	}).catch(response =>{		
+		res.status(response.status).send({message: response.message});		
 	})
 
 }

@@ -10,11 +10,11 @@ function signUp(req, res){
 		displayName: req.body.displayName,
 		password: req.body.password
 	});
-
+	
 	user.save((err) =>{
 		if(err) return res.status(500).send({message: `Error al crear el usuario ${err}`});
 
-		return res.status(200).send({ token: service.createToken(user) });
+		return res.status(200).send({ token: service.createToken(user, req.originalUrl) });
 	});
 }
 
@@ -29,7 +29,7 @@ function signIn(req, res){
         
         if(password_verification){
         	req.user = user;
-        	res.status(200).send({message: 'Te has logueado correctamente', token: service.createToken(user)});
+        	res.status(200).send({message: 'Te has logueado correctamente', token: service.createToken(user, req.originalUrl)});
         }else{
        		res.status(500).send({message: 'Email o Contraseña incorrectos'}); 	
         }
