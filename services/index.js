@@ -23,7 +23,7 @@ function decodeToken(token){
 			const payload = jwt.decode(token, config.SECRET_TOKEN);
 			
 			if(payload.exp <= moment().unix()){
-				console.log("entro en expiracion")
+				
 				reject({
 					status: 401,
 					message: 'El token ha expirado'
