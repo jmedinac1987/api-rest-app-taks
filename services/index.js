@@ -9,6 +9,7 @@ function createToken(user, url){
 	const payload = {
 		sub: user.email,
 		iss: 'http://localhost:3000' + url,
+		udn: user.displayName,
 		iat: moment().unix(),
 		exp: moment().add(14, 'days').unix(),
 	}

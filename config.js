@@ -5,7 +5,7 @@ module.exports = {
 	SECRET_TOKEN: '$uNicat20li128YY99nt$$',
 	corsOptions: {
 	 				origin: ['http://localhost:4200', 'https://jorgemedina.herokuapp.com'],
-	  				methods: ['POST'],
+	  				methods: ['GET','PUT','POST','DELETE'],
 	  				allowedHeaders: ['Content-Type', 'Authorization']
 				}
 }
