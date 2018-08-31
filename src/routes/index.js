@@ -8,6 +8,7 @@ const auth = require('../middlewares/auth');
 
 //routes Tasks
 api.get('/tasks', auth, TaskController.getTasks);
+api.get('/tasks/pending', auth, TaskController.getTasksPending);
 api.get('/tasks/:task_id', auth, TaskController.getTask);
 api.post('/tasks', auth, TaskController.saveTask);
 api.put('/tasks/:task_id', auth, TaskController.updateTask);

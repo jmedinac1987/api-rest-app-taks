@@ -14,7 +14,25 @@ function getTasks(req, res) {
         message: "No hay tareas.."
       });
     await res.status(200).send({
-      Tareas: tasks
+      tasks
+    });
+  });
+}
+
+function getTasksPending(req, res) {
+  let user = { userTask: req.user, state: "pendiente" };
+
+  Task.find(user, async (err, tasks) => {
+    if (err)
+      return await res.status(500).send({
+        message: `Error al realizar la petición ${err}`
+      });
+    if (!tasks)
+      return await res.status(404).send({
+        message: "No hay tareas.."
+      });
+    await res.status(200).send({
+      tasks
     });
   });
 }
@@ -35,7 +53,7 @@ function getTask(req, res) {
         message: "Tarea no encontrada"
       });
     await res.status(200).send({
-      Tarea: task
+      task
     });
   });
 }
@@ -101,6 +119,7 @@ function deleteTask(req, res) {
 
 module.exports = {
   getTasks,
+  getTasksPending,
   getTask,
   saveTask,
   updateTask,
