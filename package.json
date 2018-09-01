@@ -4,7 +4,7 @@
   "description": "Proyecto API RESTful con Node.js, Express, Mongodb y jwt",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jorge Andres Medina Castro (https://jorgemedina.herokuapp.com)",
@@ -14,13 +14,14 @@
     "cors": "^2.8.4",
     "crypto": "^1.0.1",
     "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
     "jwt-simple": "^0.5.1",
     "moment": "^2.22.2",
-    "mongoose": "^5.2.9",
-    "morgan": "^1.9.0"
+    "mongoose": "^5.2.12",
+    "morgan": "^1.9.0",
+    "nodemailer": "^4.6.8"
   },
   "devDependencies": {
-    "express-handlebars": "^3.0.0",
     "nodemon": "^1.18.3"
   }
 }

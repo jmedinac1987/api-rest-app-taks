@@ -3,6 +3,7 @@
 const express = require('express');
 const TaskController = require('../controllers/TaskController');
 const UserController = require('../controllers/UserController');
+const ResetPasswordController = require('../controllers/ResetPasswordController');
 const api = express.Router();
 const auth = require('../middlewares/auth');
 
@@ -17,6 +18,7 @@ api.delete('/tasks/:task_id', auth, TaskController.deleteTask);
 //routes Users
 api.post('/signup', UserController.signUp);
 api.post('/signin', UserController.signIn);
+api.post('/reset-password', ResetPasswordController.sendEmail);
 
 api.get('/private', auth, (req, res) => {
 	res.status(200).send({message: 'Tienes acceso'});

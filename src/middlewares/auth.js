@@ -1,6 +1,6 @@
 'use strict'
 
-const services = require('../services/');
+const services = require('../services/index');
 
 function isAuht(req, res, next){
 	
