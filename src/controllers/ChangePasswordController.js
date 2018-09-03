@@ -25,9 +25,9 @@ function process(req, res) {
             .status(200)
             .send({ message: "Cambio de contraseña realizado con éxito" });
         })
-        .catch(error => faliedResponse(res, error));
+        .catch(error => falliedResponse(res, error));
     })
-    .catch(error => faliedResponse(res, error));
+    .catch(error => falliedResponse(res, error));
 }
 
 function getPasswordResetTableRow(req) {
@@ -43,7 +43,7 @@ function tokenNotFoundResponse(res) {
     .send({ message: "El correo electrónico o el token no es correcto" });
 }
 
-function faliedResponse(res, error) {
+function falliedResponse(res, error) {
   return res
     .status(500)
     .send({ message: `Error al realizar la petición: ${error}` });

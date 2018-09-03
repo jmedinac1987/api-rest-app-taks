@@ -13,7 +13,7 @@ function sendEmail(req, res) {
         return res.status(404).send({ message: "Usuario no registrado" });
       send(user.email, res);
     })
-    .catch(error => faliedResponse(res, error));
+    .catch(error => falliedResponse(res, error));
 }
 
 function send(email, res) {
@@ -32,7 +32,7 @@ function send(email, res) {
             successResponse(res);
           })
           .catch(error => {
-            faliedResponse(res, error);
+            falliedResponse(res, error);
           });
 
         return;
@@ -49,10 +49,10 @@ function send(email, res) {
           successResponse(res);
         })
         .catch(error => {
-          faliedResponse(res, error);
+          falliedResponse(res, error);
         });
     })
-    .catch(error => faliedResponse(res, error));
+    .catch(error => falliedResponse(res, error));
 }
 
 function tokenDataBaseMongo(email) {
@@ -78,7 +78,7 @@ function successResponse(res) {
   });
 }
 
-function faliedResponse(res, error) {
+function falliedResponse(res, error) {
   return res
     .status(500)
     .send({ message: `Error al realizar la petición: ${error}` });
