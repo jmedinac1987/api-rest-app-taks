@@ -7,11 +7,11 @@ const crypto = require("crypto");
 
 const user_schema = Schema({
   email: { type: String, unique: true, lowercase: true },
-  displayName: { type: String, min: 3 },
+  displayName: { type: String, min: 3, max: 25 },
   //avatar: String,
-  password: { type: String }, //select: false, evitamos que cuando se haga get del usuario la contrasea no sea enviada
+  password: { type: String, min: 8 }, //select: false, evitamos que cuando se haga get del usuario la contrasea no sea enviada
   signUpDate: { type: Date, default: Date.now() },
-  lastLogin: Date
+  lastLogin: { type: Date, default: Date.now() }
 });
 
 user_schema.pre("save", function(next) {

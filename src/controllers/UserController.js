@@ -8,7 +8,8 @@ function signUp(req, res){
 	const user = new User({
 		email: req.body.email,
 		displayName: req.body.displayName,
-		password: req.body.password
+		password: req.body.password,
+		lastLogin: Date.now()
 	});
 	
 	user.save((err) =>{
@@ -28,12 +29,20 @@ function signIn(req, res){
         const password_verification =  bcrypt.compareSync(req.body.password, user.password);        
         
         if(password_verification){
+			let cahngeLastSignIn = changelastLogin(req.body.email);
+			cahngeLastSignIn.then(response => console.log('Ok change last login'));
         	req.user = user;
         	res.status(200).send({message: 'Te has logueado correctamente', token: service.createToken(user, req.originalUrl)});
         }else{
        		res.status(500).send({message: 'Email o Contraseña incorrectos'}); 	
         }
     });
+}
+function changelastLogin(email) {
+	let dateLogin = {
+		lastLogin: Date.now()
+	}
+	return User.findOneAndUpdate({ email: email }, dateLogin);
 }
 
 module.exports = {
