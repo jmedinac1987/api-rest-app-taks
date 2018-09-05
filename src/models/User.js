@@ -7,9 +7,9 @@ const crypto = require("crypto");
 
 const user_schema = Schema({
   email: { type: String, unique: true, lowercase: true },
-  displayName: { type: String, min: 3, max: 25 },
+  displayName: { type: String, minlength: 3, maxlength: 25, required: true },
   //avatar: String,
-  password: { type: String, min: 8 }, //select: false, evitamos que cuando se haga get del usuario la contrasea no sea enviada
+  password: { type: String, minlength: 8, required: true }, //select: false, evitamos que cuando se haga get del usuario la contrasea no sea enviada
   signUpDate: { type: Date, default: Date.now() },
   lastLogin: { type: Date, default: Date.now() }
 });

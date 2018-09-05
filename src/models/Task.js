@@ -4,11 +4,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const task_schema = Schema({
-  title: { type: String, min: 3, max: 100 },
-  state: { type: String, enum: ["pendiente", "realizado"] },
+  title: { type: String, minlength: 3, maxlength: 100, required: true },
+  state: { type: String, enum: ["pendiente", "realizado"], required: true },
   date: { type: Date, default: Date.now() },
-  description: { type: String, min: 3, max: 400 },
-  userTask: { type: String, lowercase: true }
+  description: { type: String, minlength: 3, maxlength: 400, required: true },
+  userTask: { type: String, lowercase: true, required: true }
 });
 
 module.exports = mongoose.model("Task", task_schema);

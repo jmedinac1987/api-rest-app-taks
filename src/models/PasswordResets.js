@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const password_resets_schema = Schema({
-  email: { type: String, min: 3 },
-  token: { type: String, min: 3 },
+  email: { type: String, min: 3, required: true },
+  token: { type: String, min: 3, required: true },
   created_at: { type: Date, default: Date.now() }
 });
 
