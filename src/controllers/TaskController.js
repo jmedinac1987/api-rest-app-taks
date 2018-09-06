@@ -2,60 +2,30 @@
 const Task = require("../models/Task");
 
 function getTasks(req, res) {
-  let user = { userTask: req.user };
-
-  Task.find(user, async (err, tasks) => {
-    if (err)
-      return await res.status(500).send({
-        message: `Error al realizar la petición ${err}`
-      });
-    if (!tasks)
-      return await res.status(404).send({
-        message: "No hay tareas.."
-      });
-    await res.status(200).send({
-      tasks
-    });
-  });
+  Task.find({ userTask: req.user })
+    .then(tasks => {
+      if (!tasks) notFound(res);
+      successResponse(res, tasks, null);
+    })
+    .catch(error => falliedResponse(res, error));
 }
 
 function getTasksPending(req, res) {
-  let user = { userTask: req.user, state: "pendiente" };
-
-  Task.find(user, async (err, tasks) => {
-    if (err)
-      return await res.status(500).send({
-        message: `Error al realizar la petición ${err}`
-      });
-    if (!tasks)
-      return await res.status(404).send({
-        message: "No hay tareas.."
-      });
-    await res.status(200).send({
-      tasks
-    });
-  });
+  Task.find({ userTask: req.user, state: "pendiente" })
+    .then(tasks => {
+      if (!tasks) notFound(res);
+      successResponse(res, tasks, null);
+    })
+    .catch(error => falliedResponse(res, error));
 }
 
 function getTask(req, res) {
-  let task_id = {
-    _id: req.params.task_id,
-    userTask: req.user
-  };
-
-  Task.findOne(task_id, async (err, task) => {
-    if (err)
-      return await res.status(500).send({
-        message: `Error al realizar la petición ${err}`
-      });
-    if (!task)
-      return await res.status(404).send({
-        message: "Tarea no encontrada"
-      });
-    await res.status(200).send({
-      task
-    });
-  });
+  Task.findOne({ _id: req.params.task_id, userTask: req.user })
+    .then(task => {
+      if (!task) notFound(res);
+      successResponse(res, task, null);
+    })
+    .catch(error => falliedResponse(res, error));
 }
 
 function saveTask(req, res) {
@@ -65,56 +35,48 @@ function saveTask(req, res) {
   task.description = req.body.description;
   task.userTask = req.user;
 
-  task.save(async (err, taskStored) => {
-    if (err)
-      return await res.status(500).send({
-        message: `Error al salvar la tarea ${err}`
-      });
-    await res.status(200).send({
-      message: "Tarea almacenada con éxito"
-    });
-  });
+  task
+    .save()
+    .then(task => {
+      successResponse(res, null, "Tarea almacenada con éxito");
+    })
+    .catch(error => falliedResponse(res, error));
 }
 
 function updateTask(req, res) {
-  let task_id = {
-    _id: req.params.task_id,
-    userTask: req.user
-  };
-  let task_update = req.body;
-  Task.findOneAndUpdate(task_id, task_update, async (err, task) => {
-    if (err)
-      return await res.status(500).send({
-        message: `Error al realizar la petición ${err}`
-      });
-    if (!task)
-      return await res.status(404).send({
-        message: "Tarea no encontrada"
-      });
-    await res.status(200).send({
-      message: "Tarea actualizada con éxito"
-    });
-  });
+  Task.findOneAndUpdate(
+    { _id: req.params.task_id, userTask: req.user },
+    req.body
+  )
+    .then(task => {
+      if (!task) notFound(res);
+      successResponse(res, null, "Tarea actualizada con éxito");
+    })
+    .catch(error => falliedResponse(res, error));
 }
 
 function deleteTask(req, res) {
-  let task_id = {
-    _id: req.params.task_id,
-    userTask: req.user
-  };
-  Task.findOneAndDelete(task_id, async (err, task) => {
-    if (err)
-      return await res.status(500).send({
-        message: `Error al realizar la petición ${err}`
-      });
-    if (!task)
-      return await res.status(404).send({
-        message: "Tarea no encontrada"
-      });
-    await res.status(200).send({
-      message: "Tarea eliminada con éxito"
-    });
-  });
+  Task.findOneAndDelete({ _id: req.params.task_id, userTask: req.user })
+    .then(task => {
+      if (!task) notFound(res);
+      successResponse(res, null, "Tarea eliminada con éxito");
+    })
+    .catch(error => falliedResponse(res, error));
+}
+
+function successResponse(res, tasks, message) {
+  if (!message) return res.status(200).send({ tasks });
+  return res.status(200).send({ message });
+}
+
+function falliedResponse(res, error) {
+  return res
+    .status(500)
+    .send({ message: `Error al realizar la petición: ${error}` });
+}
+
+function notFound(res) {
+  return res.status(404).send({ message: "Tarea(s) no encontrada(s)" });
 }
 
 module.exports = {

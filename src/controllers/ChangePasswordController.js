@@ -57,9 +57,8 @@ function changePassword(req) {
   return User.findOneAndUpdate({ email: req.body.email }, req.body);
 }
 
-function deleteTokenDataBase(id) {
-  let pass = { _id: id };
-  return PasswordResets.findOneAndDelete(pass);
+function deleteTokenDataBase(id) {  
+  return PasswordResets.findOneAndDelete({ _id: id });
 }
 
 module.exports = {
