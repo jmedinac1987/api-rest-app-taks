@@ -64,7 +64,7 @@ function deleteTask(req, res) {
     .catch(error => falliedResponse(res, error));
 }
 
-function successResponse(res, tasks, message) {
+function successResponse(res, tasks, message) {  
   if (!message) return res.status(200).send({ tasks });
   return res.status(200).send({ message });
 }
