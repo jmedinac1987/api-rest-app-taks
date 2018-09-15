@@ -1,25 +1,30 @@
 <form id="login" method="POST">
-	<input type="email" name="email" placeholder="Tu email">
+	<input type="email" id="email" name="email" placeholder="Tu email">
 	<br /><br /> 
-	<input type="password" name="password" placeholder="Tu contraseña">
+	<input type="password" id="password" name="password" placeholder="Tu contraseña">
 	<br /><br /> 
 	<input type="submit" value="Login">
 </form>
 <script type="text/javascript">
 	const form = document.querySelector('#login');
-	const formData = new FormData(form);
+	const email = document.getElementById('email');
+	const password = document.getElementById('password');	
 
 	form.addEventListener('submit', event =>{
-		event.preventDefault();
-		console.log(formData);
+		event.preventDefault();		
+		const formData = {email: email.value, password: password.value};		
 		fetch('/api/signin', {
 			method: 'POST',
-			body: formData
+			body: JSON.stringify(formData),
+			headers: {
+						'Accept' : 'application/json',
+						'Content-Type' : 'application/json'
+					}
 		})
 		.then(res => res.json())
 		.then(data => {
 			console.log(data);
-			localStorage.setItem('token', data.token);
+			sessionStorage.setItem('token', data.token);
 		}).catch(err => console.log(err));
 	});
 </script>

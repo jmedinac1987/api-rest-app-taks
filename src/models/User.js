@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const bcrypt = require("bcrypt-nodejs");
-const crypto = require("crypto");
+const bcrypt = require('bcrypt-nodejs');
+const crypto = require('crypto');
 
 const user_schema = Schema({
   email: { type: String, unique: true, lowercase: true },
@@ -14,9 +14,9 @@ const user_schema = Schema({
   lastLogin: { type: Date, default: Date.now() }
 });
 
-user_schema.pre("save", function(next) {
+user_schema.pre('save', function(next) {
   let user = this;
-  if (!user.isModified("password")) return next();
+  if (!user.isModified('password')) return next();
 
   bcrypt.genSalt(10, (err, salt) => {
     if (err) return next();
@@ -31,14 +31,14 @@ user_schema.pre("save", function(next) {
 });
 
 user_schema.methods.gravatar = () => {
-  if (!this.email) return "https://gravatar.com/avatar/?s=200&d=retro";
+  if (!this.email) return 'https://gravatar.com/avatar/?s=200&d=retro';
 
   const md5 = crypto
-    .createHash("md5")
+    .createHash('md5')
     .update(this.email)
-    .digest("hex");
+    .digest('hex');
 
   return `https://gravatar.com/avatar/${md5}?s=200&d=retro`;
 };
 
-module.exports = mongoose.model("User", user_schema);
+module.exports = mongoose.model('User', user_schema);

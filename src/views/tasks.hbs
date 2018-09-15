@@ -2,18 +2,19 @@
 <script type="text/javascript">
 	
 	let tasks_list = document.createElement('ul');
-
-	const myHeaders = new Headers();
-	myHeaders.append('Authorization', `Bearer ${localStorage.token}`)
-
+	
 	fetch('/api/tasks', {
 		method: 'GET',
-		headers: myHeaders
+		headers: {
+			'Accept' : 'application/json',
+			'Content-Type' : 'application/json',
+			'Authorization' : `Bearer ${sessionStorage.token}`
+		}
 	})
 	.then(res => res.json())
 	.then(data =>{ 
 		console.log(data);
-		data.Tareas.map(Tarea =>{
+		data.tasks.map(Tarea =>{
 			let text = document.createTextNode(Tarea.title);
 			let element = document.createElement('li');
 			element.appendChild(text);

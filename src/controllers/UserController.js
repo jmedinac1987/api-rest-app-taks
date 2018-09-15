@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-const User = require("../models/User");
-const bcrypt = require("bcrypt-nodejs");
-const service = require("../services/");
+const User = require('../models/User');
+const bcrypt = require('bcrypt-nodejs');
+const service = require('../services/');
 
 function signUp(req, res) {
   const user = new User({
@@ -28,7 +28,7 @@ function signIn(req, res) {
   User.findOne({ email: req.body.email })
     .then(user => {
       if (!user)
-        return res.status(404).send({ message: "Usuario no registrado" });
+        return res.status(404).send({ message: 'Usuario no registrado' });
 
       const password_verification = bcrypt.compareSync(
         req.body.password,
@@ -37,13 +37,13 @@ function signIn(req, res) {
 
       if (password_verification) {
         let cahngeLastSignIn = changelastLogin(req.body.email);
-        cahngeLastSignIn.then(response => console.log("Last login"));        
+        cahngeLastSignIn.then(response => console.log('Last login'));        
         res.status(200).send({
-          message: "Te has logueado correctamente",
+          message: 'Te has logueado correctamente',
           token: service.createToken(user, req.originalUrl)
         });
       } else {
-        res.status(500).send({ message: "Email o Contraseña incorrectos" });
+        res.status(500).send({ message: 'Email o Contraseña incorrectos' });
       }
     })
     .catch(err => {

@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
-const User = require("../models/User");
-const PasswordResets = require("../models/PasswordResets");
-const bcrypt = require("bcrypt-nodejs");
+const User = require('../models/User');
+const PasswordResets = require('../models/PasswordResets');
+const bcrypt = require('bcrypt-nodejs');
 
 function process(req, res) {
   let tokenDataBase = getPasswordResetTableRow(req);
@@ -17,17 +17,17 @@ function process(req, res) {
       let deleteToken = deleteTokenDataBase(token._id);
       let userpasswordChnage = changePassword(req);
 
-      deleteToken.then(result => console.log("Token Eliminado"));
+      deleteToken.then(result => console.log('Token Eliminado'));
 
       userpasswordChnage
         .then(result => {
           res
             .status(200)
-            .send({ message: "Cambio de contraseña realizado con éxito" });
+            .send({ message: 'Cambio de contraseña realizado con éxito' });
         })
-        .catch(error => falliedResponse(res, error));
+        .catch(error => faliedResponse(res, error));
     })
-    .catch(error => falliedResponse(res, error));
+    .catch(error => faliedResponse(res, error));
 }
 
 function getPasswordResetTableRow(req) {
@@ -40,10 +40,10 @@ function getPasswordResetTableRow(req) {
 function tokenNotFoundResponse(res) {
   return res
     .status(404)
-    .send({ message: "El correo electrónico o el token no es correcto" });
+    .send({ message: 'El correo electrónico o el token no es correcto' });
 }
 
-function falliedResponse(res, error) {
+function faliedResponse(res, error) {
   return res
     .status(500)
     .send({ message: `Error al realizar la petición: ${error}` });

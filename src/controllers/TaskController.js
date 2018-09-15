@@ -1,5 +1,5 @@
-"use strict";
-const Task = require("../models/Task");
+'use strict';
+const Task = require('../models/Task');
 
 function getTasks(req, res) {
   Task.find({ userTask: req.user })
@@ -7,16 +7,16 @@ function getTasks(req, res) {
       if (!tasks) notFound(res);
       successResponse(res, tasks, null);
     })
-    .catch(error => falliedResponse(res, error));
+    .catch(error => faliedResponse(res, error));
 }
 
 function getTasksPending(req, res) {
-  Task.find({ userTask: req.user, state: "pendiente" })
+  Task.find({ userTask: req.user, state: 'pendiente' })
     .then(tasks => {
       if (!tasks) notFound(res);
       successResponse(res, tasks, null);
     })
-    .catch(error => falliedResponse(res, error));
+    .catch(error => faliedResponse(res, error));
 }
 
 function getTask(req, res) {
@@ -25,7 +25,7 @@ function getTask(req, res) {
       if (!task) notFound(res);
       successResponse(res, task, null);
     })
-    .catch(error => falliedResponse(res, error));
+    .catch(error => faliedResponse(res, error));
 }
 
 function saveTask(req, res) {
@@ -38,9 +38,9 @@ function saveTask(req, res) {
   task
     .save()
     .then(task => {
-      successResponse(res, null, "Tarea almacenada con éxito");
+      successResponse(res, null, 'Tarea almacenada con éxito');
     })
-    .catch(error => falliedResponse(res, error));
+    .catch(error => faliedResponse(res, error));
 }
 
 function updateTask(req, res) {
@@ -50,18 +50,18 @@ function updateTask(req, res) {
   )
     .then(task => {
       if (!task) notFound(res);
-      successResponse(res, null, "Tarea actualizada con éxito");
+      successResponse(res, null, 'Tarea actualizada con éxito');
     })
-    .catch(error => falliedResponse(res, error));
+    .catch(error => faliedResponse(res, error));
 }
 
 function deleteTask(req, res) {
   Task.findOneAndDelete({ _id: req.params.task_id, userTask: req.user })
     .then(task => {
       if (!task) notFound(res);
-      successResponse(res, null, "Tarea eliminada con éxito");
+      successResponse(res, null, 'Tarea eliminada con éxito');
     })
-    .catch(error => falliedResponse(res, error));
+    .catch(error => faliedResponse(res, error));
 }
 
 function successResponse(res, tasks, message) {  
@@ -69,14 +69,14 @@ function successResponse(res, tasks, message) {
   return res.status(200).send({ message });
 }
 
-function falliedResponse(res, error) {
+function faliedResponse(res, error) {
   return res
     .status(500)
     .send({ message: `Error al realizar la petición: ${error}` });
 }
 
 function notFound(res) {
-  return res.status(404).send({ message: "Tarea(s) no encontrada(s)" });
+  return res.status(404).send({ message: 'Tarea(s) no encontrada(s)' });
 }
 
 module.exports = {

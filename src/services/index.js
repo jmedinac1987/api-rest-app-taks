@@ -1,17 +1,17 @@
-"use strict";
+'use strict';
 
-const jwt = require("jwt-simple");
-const moment = require("moment");
-const config = require("../config");
+const jwt = require('jwt-simple');
+const moment = require('moment');
+const config = require('../config');
 
 function createToken(user, url) {
   const payload = {
     sub: user.email,
-    iss: "http://localhost:3000" + url,
+    iss: 'http://localhost:3000' + url,
     udn: user.displayName,
     iat: moment().unix(),
     exp: moment()
-      .add(14, "days")
+      .add(14, 'days')
       .unix()
   };
 
@@ -26,7 +26,7 @@ function decodeToken(token) {
       if (payload.exp <= moment().unix()) {
         reject({
           status: 401,
-          message: "El token ha expirado"
+          message: 'El token ha expirado'
         });
       }
 
@@ -34,7 +34,7 @@ function decodeToken(token) {
     } catch (err) {
       reject({
         status: 500,
-        message: "Token invalido"
+        message: 'Token invalido'
       });
     }
   });

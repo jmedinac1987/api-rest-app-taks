@@ -1,24 +1,24 @@
-"use strict";
+'use strict';
 
-const User = require("../models/User");
-const PasswordResets = require("../models/PasswordResets");
-const service = require("../services/index");
-const mail = require("../services/mail");
+const User = require('../models/User');
+const PasswordResets = require('../models/PasswordResets');
+const service = require('../services/index');
+const mail = require('../services/mail');
 
 function sendEmail(req, res) {
   let email = validateUser(req.body.email);
   email
     .then(user => {
       if (!user)
-        return res.status(404).send({ message: "Usuario no registrado" });
+        return res.status(404).send({ message: 'Usuario no registrado' });
       send(user.email, res);
     })
-    .catch(error => falliedResponse(res, error));
+    .catch(error => faliedResponse(res, error));
 }
 
 function send(email, res) {
-  let url = "/api/reset-password";
-  let urlToken = "http://localhost:4200/response-password-reset?token=";
+  let url = '/api/reset-password';
+  let urlToken = 'http://localhost:4200/response-password-reset?token=';
   let tokenDataBase = tokenDataBaseMongo(email);
 
   tokenDataBase
@@ -32,7 +32,7 @@ function send(email, res) {
             successResponse(res);
           })
           .catch(error => {
-            falliedResponse(res, error);
+            faliedResponse(res, error);
           });
 
         return;
@@ -49,10 +49,10 @@ function send(email, res) {
           successResponse(res);
         })
         .catch(error => {
-          falliedResponse(res, error);
+          faliedResponse(res, error);
         });
     })
-    .catch(error => falliedResponse(res, error));
+    .catch(error => faliedResponse(res, error));
 }
 
 function tokenDataBaseMongo(email) {
@@ -74,11 +74,11 @@ function saveToken(token, email) {
 function successResponse(res) {
   return res.status(200).send({
     message:
-      "El correo electrónico de restablecimiento de contraseña se envió con éxito, verifique su bandeja de entrada"
+      'El correo electrónico de restablecimiento de contraseña se envió con éxito, verifique su bandeja de entrada'
   });
 }
 
-function falliedResponse(res, error) {
+function faliedResponse(res, error) {
   return res
     .status(500)
     .send({ message: `Error al realizar la petición: ${error}` });
