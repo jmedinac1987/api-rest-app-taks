@@ -28,11 +28,12 @@ function getTask(req, res) {
     .catch(error => faliedResponse(res, error));
 }
 
-function saveTask(req, res) {
+function saveTask(req, res) {  
   let task = new Task();
   task.title = req.body.title;
   task.state = req.body.state;
   task.description = req.body.description;
+  task.endDate = req.body.endDate;
   task.userTask = req.user;
 
   task
@@ -43,7 +44,7 @@ function saveTask(req, res) {
     .catch(error => faliedResponse(res, error));
 }
 
-function updateTask(req, res) {
+function updateTask(req, res) {  
   Task.findOneAndUpdate(
     { _id: req.params.task_id, userTask: req.user },
     req.body
