@@ -60,7 +60,31 @@ function changelastLogin(email) {
   return User.findOneAndUpdate({ email: email }, dateLogin);
 }
 
+function closeAcount(req, res){
+  User.findOneAndDelete({ email: req.user })
+    .then(user => {
+      if (!user) notFound(res);
+      successResponse(res, 'Cuenta cerrada con exito éxito');
+    })
+    .catch(error => faliedResponse(res, error));
+}
+
+function successResponse(res, message) {    
+  return res.status(200).send({ message });
+}
+
+function faliedResponse(res, error) {
+  return res
+    .status(500)
+    .send({ message: `Error al realizar la petición: ${error}` });
+}
+
+function notFound(res) {
+  return res.status(404).send({ message: 'Usuario no encontrado' });
+}
+
 module.exports = {
   signUp,
-  signIn
+  signIn,
+  closeAcount
 };

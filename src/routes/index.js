@@ -21,6 +21,7 @@ api.post('/signup', UserController.signUp);
 api.post('/signin', UserController.signIn);
 api.post('/reset-password', ResetPasswordController.sendEmail);
 api.post('/change-password', ChangePasswordController.process)
+api.post('/close-acount', auth, UserController.closeAcount);
 
 api.get('/private', auth, (req, res) => {
 	res.status(200).send({message: 'Tienes acceso'});

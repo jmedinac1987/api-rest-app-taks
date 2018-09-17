@@ -15,8 +15,8 @@ mail.sendEmail = async (email, token) => {
 
   let mail_options = {
     from: 'do_not_reply <website@heroku.com>',
-    to: config.email,
-    subject: 'Restablecimiento de password para AppTasks',
+    to: email,
+    subject: 'Restablecimiento de Password para AppTasks',
     text:
       'Le hemos enviado un nuevo token de seguridad porque recientemente solicitó restablecer su password de seguridad. \n Haga clic en el enlace de abajo para cambiar el password.\n' +
       token,
