@@ -5,8 +5,7 @@ module.exports = {
   email: 'infojorgemedinawebsite@gmail.com',
   key: 'bRy$J3025*D3$aFik*E',
   SECRET_TOKEN: '$uNicat20li128YY99nt$$',
-  corsOptions: {
-    origin: ['http://localhost:4200', 'https://jorgemedina.herokuapp.com'],
+  corsOptions: {    
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }
