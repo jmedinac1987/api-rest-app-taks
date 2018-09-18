@@ -4,7 +4,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt-nodejs');
 const service = require('../services/');
 
-function signUp(req, res) {
+async function signUp(req, res) {
   const user = new User({
     email: req.body.email,
     displayName: req.body.displayName,
@@ -12,7 +12,7 @@ function signUp(req, res) {
     lastLogin: Date.now()
   });
 
-  user.save(err => {
+  await user.save(err => {
     if (err)
       return res
         .status(500)
@@ -24,8 +24,8 @@ function signUp(req, res) {
   });
 }
 
-function signIn(req, res) {
-  User.findOne({ email: req.body.email })
+async function signIn(req, res) {
+ await User.findOne({ email: req.body.email })
     .then(user => {
       if (!user)
         return res.status(404).send({ message: 'Usuario no registrado' });
@@ -60,8 +60,8 @@ function changelastLogin(email) {
   return User.findOneAndUpdate({ email: email }, dateLogin);
 }
 
-function closeAcount(req, res){
-  User.findOneAndDelete({ email: req.user })
+async function closeAcount(req, res){
+  await User.findOneAndDelete({ email: req.user })
     .then(user => {
       if (!user) notFound(res);
       successResponse(res, 'Cuenta cerrada con exito éxito');

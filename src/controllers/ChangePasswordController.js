@@ -4,10 +4,10 @@ const User = require('../models/User');
 const PasswordResets = require('../models/PasswordResets');
 const bcrypt = require('bcrypt-nodejs');
 
-function process(req, res) {
+async function process(req, res) {
   let tokenDataBase = getPasswordResetTableRow(req);
 
-  tokenDataBase
+  await tokenDataBase
     .then(token => {
       if (!token) {
         tokenNotFoundResponse(res);

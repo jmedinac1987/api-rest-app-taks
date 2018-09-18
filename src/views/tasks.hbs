@@ -1,26 +1,38 @@
-<p>View Task is Works!</p>
+<div class="container" style="padding: 3%; align-items: center;">
+	<div class="container">
+		<h1 style="text-align: center;">Task List Test, API RESTful</h1>
+	</div>
+</div>
+
 <script type="text/javascript">
-	
+
 	let tasks_list = document.createElement('ul');
-	
+	tasks_list.className = "container";
+
 	fetch('/api/tasks', {
 		method: 'GET',
 		headers: {
-			'Accept' : 'application/json',
-			'Content-Type' : 'application/json',
-			'Authorization' : `Bearer ${sessionStorage.token}`
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${sessionStorage.token}`
 		}
 	})
-	.then(res => res.json())
-	.then(data =>{ 
-		console.log(data);
-		data.tasks.map(Tarea =>{
-			let text = document.createTextNode(Tarea.title);
-			let element = document.createElement('li');
-			element.appendChild(text);
-			tasks_list.appendChild(element);
-		});
-
-		document.body.appendChild(tasks_list);
-	});
+		.then(res => res.json())
+		.then(data => {
+			if (data.tasks.length > 0) {
+				data.tasks.map(Tarea => {
+					let text = document.createTextNode(`${Tarea.title}: ${Tarea.description}`);
+					let element = document.createElement('li');
+					element.appendChild(text);
+					tasks_list.appendChild(element);
+				});
+				document.body.appendChild(tasks_list);
+			} else {
+				let text = document.createTextNode('No tienes tareas registradas :S');
+				let element = document.createElement('li');
+				element.appendChild(text);
+				tasks_list.appendChild(element);
+				document.body.appendChild(tasks_list);
+			}
+		}).catch(err => console.log(err));
 </script>

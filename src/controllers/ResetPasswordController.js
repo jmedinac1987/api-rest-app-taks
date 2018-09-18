@@ -5,9 +5,9 @@ const PasswordResets = require('../models/PasswordResets');
 const service = require('../services/index');
 const mail = require('../services/mail');
 
-function sendEmail(req, res) {
+async function sendEmail(req, res) {
   let email = validateUser(req.body.email);
-  email
+  await email
     .then(user => {
       if (!user)
         return res.status(404).send({ message: 'Usuario no registrado' });

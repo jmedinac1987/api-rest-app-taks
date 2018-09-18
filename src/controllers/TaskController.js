@@ -1,8 +1,8 @@
 'use strict';
 const Task = require('../models/Task');
 
-function getTasks(req, res) {
-  Task.find({ userTask: req.user })
+async function getTasks(req, res) {
+  await Task.find({ userTask: req.user })
     .then(tasks => {
       if (!tasks) notFound(res);
       successResponse(res, tasks, null);
@@ -10,8 +10,8 @@ function getTasks(req, res) {
     .catch(error => faliedResponse(res, error));
 }
 
-function getTasksPending(req, res) {
-  Task.find({ userTask: req.user, state: 'pendiente' })
+async function getTasksPending(req, res) {
+  await Task.find({ userTask: req.user, state: 'pendiente' })
     .then(tasks => {
       if (!tasks) notFound(res);
       successResponse(res, tasks, null);
@@ -19,8 +19,8 @@ function getTasksPending(req, res) {
     .catch(error => faliedResponse(res, error));
 }
 
-function getTask(req, res) {
-  Task.findOne({ _id: req.params.task_id, userTask: req.user })
+async function getTask(req, res) {
+  await Task.findOne({ _id: req.params.task_id, userTask: req.user })
     .then(task => {
       if (!task) notFound(res);
       successResponse(res, task, null);
@@ -28,7 +28,7 @@ function getTask(req, res) {
     .catch(error => faliedResponse(res, error));
 }
 
-function saveTask(req, res) {  
+async function saveTask(req, res) {  
   let task = new Task();
   task.title = req.body.title;
   task.state = req.body.state;
@@ -36,7 +36,7 @@ function saveTask(req, res) {
   task.endDate = req.body.endDate;
   task.userTask = req.user;
 
-  task
+  await task
     .save()
     .then(task => {
       successResponse(res, null, 'Tarea almacenada con éxito');
@@ -44,8 +44,8 @@ function saveTask(req, res) {
     .catch(error => faliedResponse(res, error));
 }
 
-function updateTask(req, res) {  
-  Task.findOneAndUpdate(
+async function updateTask(req, res) {  
+  await Task.findOneAndUpdate(
     { _id: req.params.task_id, userTask: req.user },
     req.body
   )
@@ -56,8 +56,8 @@ function updateTask(req, res) {
     .catch(error => faliedResponse(res, error));
 }
 
-function deleteTask(req, res) {
-  Task.findOneAndDelete({ _id: req.params.task_id, userTask: req.user })
+async function deleteTask(req, res) {
+  await Task.findOneAndDelete({ _id: req.params.task_id, userTask: req.user })
     .then(task => {
       if (!task) notFound(res);
       successResponse(res, null, 'Tarea eliminada con éxito');

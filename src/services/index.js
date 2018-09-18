@@ -7,7 +7,7 @@ const config = require('../config');
 function createToken(user, url) {
   const payload = {
     sub: user.email,
-    iss: 'http://localhost:3000' + url,
+    iss: 'https://tasksapplication.herokuapp.com' + url,
     udn: user.displayName,
     iat: moment().unix(),
     exp: moment()

@@ -1,30 +1,52 @@
-<form id="login" method="POST">
-	<input type="email" id="email" name="email" placeholder="Tu email">
-	<br /><br /> 
-	<input type="password" id="password" name="password" placeholder="Tu contraseña">
-	<br /><br /> 
-	<input type="submit" value="Login">
-</form>
+<div class="container" style="padding: 3%; align-items: center;">
+	<div class="container">
+		<h1 style="text-align: center;">Test Login API RESTful</h1>
+	</div>
+	<div class="container" style="padding: 3%; border: solid 1px #000000;">
+		<form id="login" method="POST">
+			<div class="six columns">
+				<label for="email">E-mail</label>
+				<input class="u-full-width" type="email" id="email" name="email" placeholder="Tu e-mail">
+			</div>
+			<div class="six columns">
+				<label for="password">Contraseña</label>
+				<input class="u-full-width" type="password" id="password" name="password" placeholder="Tu contraseña">
+			</div>
+			<input class="button-primary u-full-width" type="submit" value="Login">
+		</form>
+	</div>
+</div>
+<div class="container" id="response" style="align-items: center;">
+
+</div>
+
+
 <script type="text/javascript">
+
 	const form = document.querySelector('#login');
 	const email = document.getElementById('email');
-	const password = document.getElementById('password');	
+	const password = document.getElementById('password');
+	const response = document.getElementById('response');
 
-	form.addEventListener('submit', event =>{
-		event.preventDefault();		
-		const formData = {email: email.value, password: password.value};		
+	form.addEventListener('submit', event => {
+		event.preventDefault();
+		const formData = { email: email.value, password: password.value };
 		fetch('/api/signin', {
 			method: 'POST',
 			body: JSON.stringify(formData),
 			headers: {
-						'Accept' : 'application/json',
-						'Content-Type' : 'application/json'
-					}
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			}
 		})
-		.then(res => res.json())
-		.then(data => {
-			console.log(data);
-			sessionStorage.setItem('token', data.token);
-		}).catch(err => console.log(err));
+			.then(res => res.json())
+			.then(data => {
+				if (data.message === "Te has logueado correctamente") {
+					response.insertAdjacentHTML("beforeend", `<div class='container'><p style="text-align: center;">Login realizado con éxito! para <strong> ${email.value} </strong>, ingresa a la ruta https://tasksapplication.herokuapp.com/tasks para ver las tareas :)</p></div>`);
+				} else {
+					response.insertAdjacentHTML("beforeend", `<div class='container'><p style="text-align: center;">${data.message}</p></div>`);
+				}
+				sessionStorage.setItem('token', data.token);
+			}).catch(err => console.log(err));
 	});
 </script>
