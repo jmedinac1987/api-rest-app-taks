@@ -64,7 +64,7 @@ async function closeAcount(req, res){
   await User.findOneAndDelete({ email: req.user })
     .then(user => {
       if (!user) notFound(res);
-      successResponse(res, 'Cuenta cerrada con exito éxito');
+      successResponse(res, 'Cuenta cerrada con éxito');
     })
     .catch(error => faliedResponse(res, error));
 }
