@@ -1,6 +1,6 @@
 # API REST 
 
-Esta API fue construida con para brindar el servicio backend las aplicaciones AppTasks y TasksMaterialApp, el API cuenta con las siguientes caracteristicas:
+Esta API fue construida con para brindar el servicio backend de las aplicaciones AppTasks y TasksMaterialApp, el API cuenta con las siguientes caracteristicas:
 
 1. Manejo de usuarios
 2. Manejo de documentos para bases de datos no relacionales.
