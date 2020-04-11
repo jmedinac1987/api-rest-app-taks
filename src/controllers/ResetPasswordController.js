@@ -79,6 +79,7 @@ function successResponse(res) {
 }
 
 function faliedResponse(res, error) {
+  console.log(error);
   return res
     .status(500)
     .send({ message: `Error al realizar la petición: ${error}` });
