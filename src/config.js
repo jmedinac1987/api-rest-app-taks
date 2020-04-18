@@ -8,15 +8,17 @@ module.exports = {
     useFindAndModify: false,
   },
   auth: {
-    type:'OAuth2',
-    user: 'test@gmail.com',
-    clientId:'your_cliente_id',
-    clientSecret: 'your_secret_id'
-  },
-  auth2: {
-    user: 'test@gmail.com',
-    refreshToken: 'your_refresh_token',
-    accessToken:'your_acces_token',
+    type: "OAuth2",
+    user: "****************@gmail.com",
+    accessToken:
+      "**********",
+    clientId:
+      "*****************",
+    clientSecret: "*************",
+    refreshToken:
+      "*************",
+    expires: 1587247926190 + 60000,
+    accessUrl: "https://oauth2.googleapis.com/token",
   },
   SECRET_TOKEN: "***********",
   corsOptions: {
