@@ -19,7 +19,7 @@
     "moment": "^2.22.2",
     "mongoose": "^5.8.7",
     "morgan": "^1.9.0",
-    "nodemailer": "^4.6.8"
+    "nodemailer": "^6.4.16"
   },
   "devDependencies": {
     "nodemon": "^1.18.3"
